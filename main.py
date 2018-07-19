@@ -65,7 +65,7 @@ missions = {
 
 class Game(GameBase, FSM):
     def __init__(self):
-        GameBase.__init__(self, debug = True)
+        GameBase.__init__(self, debug = False)
         FSM.__init__(self, "GUI FSM")
         base.disableMouse()
         
