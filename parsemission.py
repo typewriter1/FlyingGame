@@ -1,3 +1,13 @@
+"""
+About .mission files:
+
+They contain the locations model files should be loaded at and placed on the
+terrain.bam model.
+
+Note that .egg/.bam extensions can be ommited.
+"""
+
+
 class Item(object):
     def __init__(self, modelName, modelPos):
         self.modelName = modelName
