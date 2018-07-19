@@ -1,4 +1,4 @@
-# FlyingGame
+# Flying Game
 My [game](https://typewriter1.github.io).
 
 ![Screenshot](https://raw.githubusercontent.com/typewriter1/FlyingGame/master/screenshot7.png)
