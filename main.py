@@ -54,7 +54,7 @@ missions = {
         options = ["3", "4", "2"],
         correctAnswer = "3"),
     "test": Mission(
-        timeAllowed = 2,
+        timeAllowed = 10,
         objective = "This is a test mission",
         question = "Test",
         mapName = "models/m1.mission",
