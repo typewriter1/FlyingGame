@@ -16,21 +16,35 @@ loadPrcFileData("",
 from direct.showbase.ShowBase import ShowBase
 from direct.gui.DirectGui import *
 import sys
-
-#######################################################
-#Update this path to your RenderPipeline installation.#
-#######################################################
 sys.path.append(r"C:\Users\avise\Desktop\Games\RenderPipeline-master")
-#######################################################
 
-from rpcore import RenderPipeline, SpotLight
-rp = RenderPipeline()
+USE_RENDER_PIPELINE = True
+
+if USE_RENDER_PIPELINE:
+    from rpcore import RenderPipeline, SpotLight
+    rp = RenderPipeline()
+
+    models = {
+        "terrain":"models/terrain.bam",
+        "player":"models/jet/jet2.bam",
+        }
+
+else:
+    models = {
+        "terrain":"models/terrain_non_render_pipeline.egg",
+        "player":"models/jet/jet2_non_render_pipeline.egg",
+        }
+    
 
 class GameBase(ShowBase):
     def __init__(self, autoSetup = True, debug = False):
-        rp.set_loading_screen_image("screenshot7.png")
-        rp.create(self)
-        rp.daytime_mgr.time = 0.43
+        if USE_RENDER_PIPELINE:
+            rp.set_loading_screen_image("screenshot7.png")
+            rp.create(self)
+            rp.daytime_mgr.time = 0.43
+        else:
+            ShowBase.__init__(self)
+            render.setShaderAuto()
         
         if autoSetup:
             self.setupLighting()
@@ -47,7 +61,26 @@ class GameBase(ShowBase):
         base.pusher.addInPattern("%fn-into-%in")
 
     def setupLighting(self):
-        pass
+        if not USE_RENDER_PIPELINE:
+            al = AmbientLight("scene light")
+            al.setColor((0.4, 0.4, 0.4, 1.0))
+            self.alnp = render.attachNewNode(al)
+            render.setLight(self.alnp)
+
+            self.createDirectionalLight(hpr = (0, 90, 30))
+            self.createDirectionalLight(hpr = (-90, 90, 120))
+            self.createDirectionalLight(hpr = (90, -90, 270))
+
+            
+        else:
+            #Use RP scattering for lights
+            pass
+
+    def createDirectionalLight(self, hpr = (0, 0, 0)):
+        dl = DirectionalLight("sun")
+        dlnp = render.attachNewNode(dl)
+        dlnp.setHpr(*hpr)
+        render.setLight(dlnp)
 
     def setMusic(self, path, loops = True, volume = 1):
         sound = loader.loadSfx(path)
