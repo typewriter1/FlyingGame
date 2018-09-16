@@ -2,7 +2,8 @@ from panda3d.core import *
 from direct.showbase.ShowBase import *
 from direct.fsm.FSM import FSM
 from direct.gui.OnscreenText import OnscreenText
-from gamebase import GameBase, Menu, rp
+from direct.particles.ParticleEffect import ParticleEffect
+from gamebase import *
 from missionscreen import MissionScreen
 from debrief import Debrief
 from hud import Hud
@@ -54,7 +55,7 @@ missions = {
         options = ["3", "4", "2"],
         correctAnswer = "3"),
     "test": Mission(
-        timeAllowed = 10,
+        timeAllowed = 2,
         objective = "This is a test mission",
         question = "Test",
         mapName = "models/m1.mission",
@@ -65,7 +66,7 @@ missions = {
 
 class Game(GameBase, FSM):
     def __init__(self):
-        GameBase.__init__(self, debug = False)
+        GameBase.__init__(self, debug = True)
         FSM.__init__(self, "GUI FSM")
         base.disableMouse()
         
@@ -174,9 +175,10 @@ class World:
     async def loadScene(self, task):
         text = OnscreenText("Loading...")
 
-        self.terrain = await loader.loadModel("models/terrain.bam", blocking = False)
+        self.terrain = await loader.loadModel(models["terrain"], blocking = False)
         self.terrain.reparentTo(render)
-        rp.prepare_scene(self.terrain)
+        if USE_RENDER_PIPELINE:
+            rp.prepare_scene(self.terrain)
         self.terrain.setScale(18)
         
 
@@ -190,8 +192,6 @@ class World:
         #Once loaded, remove loading text
         text.hide()
         del text
-        
-        rp.prepare_scene(self.terrain)
 
         self.loaded = True
 
@@ -208,10 +208,13 @@ class World:
 
 class Player:
     def __init__(self, worldInstance):
-        self.model = loader.loadModel("models/jet/jet2.bam")
+        self.model = loader.loadModel(models["player"])
         self.model.reparentTo(render)
         self.model.setScale(0.3)
         self.model.setZ(19)
+
+        if USE_RENDER_PIPELINE:
+            rp.prepare_scene(self.model)
         
         base.taskMgr.add(self.playerUpdate, "update player")
 
@@ -222,6 +225,11 @@ class Player:
         #self.colNode.show()
         base.cTrav.addCollider(self.colNode, base.pusher)
         base.pusher.addCollider(self.colNode, self.model)
+
+        base.enableParticles()
+        self.particles = ParticleEffect()
+        self.particles.loadConfig("particles/exhuast.ptf")
+        #self.particles.start(parent = self.model, renderParent = render)
 
         self.worldInstance = worldInstance
 
