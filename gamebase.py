@@ -16,7 +16,13 @@ loadPrcFileData("",
 from direct.showbase.ShowBase import ShowBase
 from direct.gui.DirectGui import *
 import sys
+
+#######################################################
+#Update this path to your RenderPipeline installation.#
+#######################################################
 sys.path.append(r"C:\Users\avise\Desktop\Games\RenderPipeline-master")
+#######################################################
+
 from rpcore import RenderPipeline, SpotLight
 rp = RenderPipeline()
 
