@@ -137,7 +137,7 @@ class Game(GameBase, FSM):
     def enterDebrief(self):
         self.debrief.show()
         self.debrief.setTitle(self.currentMission.question, isAnswer = False)
-        self.debrief.setButtons(self.currentMission.options)
+        self.debrief.setButtons(self.currentMission)
         self.accept("debrief-correct", self.debrief.setTitle, ["Correct"])
         self.accept("debrief-wrong", self.debrief.setTitle, ["Wrong"])
         self.accept("debrief-back", self.request, ["Menu"])
