@@ -18,7 +18,7 @@ from direct.gui.DirectGui import *
 import sys
 sys.path.append(r"C:\Users\avise\Desktop\Games\RenderPipeline-master")
 
-USE_RENDER_PIPELINE = True
+USE_RENDER_PIPELINE = False
 
 if USE_RENDER_PIPELINE:
     from rpcore import RenderPipeline, SpotLight
@@ -70,6 +70,15 @@ class GameBase(ShowBase):
             self.createDirectionalLight(hpr = (0, 90, 30))
             self.createDirectionalLight(hpr = (-90, 90, 120))
             self.createDirectionalLight(hpr = (90, -90, 270))
+
+            self.worldColor = (130.0/255.0, 202.0/255.0, 1)
+
+            base.setBackgroundColor(*self.worldColor)
+
+            self.fog = Fog("scene fog")
+            self.fog.setExpDensity(0.01)
+            self.fog.setColor(*self.worldColor)
+            render.setFog(self.fog)
 
             
         else:
