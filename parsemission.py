@@ -1,4 +1,6 @@
+
 class ParticleSystem(object):
+    """Holds the position and name of ptf file for a particle system in a level"""
     def __init__(self, ptfFile, particlePos):
         self.ptfFile = ptfFile
         self.particlePos = particlePos
@@ -7,6 +9,7 @@ class ParticleSystem(object):
         return "Particle System '" + self.ptfFile + "' at " + str(self.particlePos)
 
 class Model(object):
+    """Holds the position and name of model file for a model in a level"""
     def __init__(self, modelName, modelPos):
         self.modelName = modelName
         self.modelPos = modelPos
@@ -15,6 +18,8 @@ class Model(object):
         return "Model '" + self.modelName + "' at " + str(self.modelPos)
 
 def parseMissionFile(filename):
+    """Returns a list of ParticleSystem and Model objects with file names and positions of objects in the level
+    from the .mission file."""
     f = open(filename, "r")
     file = f.read()
     f.close()
