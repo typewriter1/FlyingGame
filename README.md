@@ -1,5 +1,5 @@
 # Flying Game
-My [game](https://typewriter1.github.io).
+My [game](https://typewriter1.github.io/games.html) -  Fly your plane, spy on the enemy, and report on their activity and help win the war!
 
 ![Screenshot](https://raw.githubusercontent.com/typewriter1/FlyingGame/master/screenshot7.png)
 
