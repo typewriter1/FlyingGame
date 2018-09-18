@@ -8,6 +8,8 @@ loadPrcFileData("",
                         """"
                             window-title {}
                             textures-power-2 none
+                            framebuffer-multisample 1
+                            multisamples 16
                             """.format(appName))
 
 
@@ -45,6 +47,7 @@ class GameBase(ShowBase):
         else:
             ShowBase.__init__(self)
             render.setShaderAuto()
+            render.setAntialias(AntialiasAttrib.MAuto)
         
         if autoSetup:
             self.setupLighting()
@@ -76,7 +79,7 @@ class GameBase(ShowBase):
             base.setBackgroundColor(*self.worldColor)
 
             self.fog = Fog("scene fog")
-            self.fog.setExpDensity(0.01)
+            self.fog.setExpDensity(0.003)
             self.fog.setColor(*self.worldColor)
             render.setFog(self.fog)
 
