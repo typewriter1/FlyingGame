@@ -8,7 +8,11 @@ class Debrief(MenuBase):
         self.title = self.makeTitle(text = "Placeholder for question")
         self.title.reparentTo(self.frame)
 
-        self.btn1 = self.makeButton(text = "3", pos = (-0.2, -0.6), event = "debrief-correct", hasPadding = False)
+        
+        #All buttons are set to sending the event debrief-wrong (for a wrong answer)
+        #by default. This is changed to debreif-correct for the button containing the correct answer
+        #by self.setButtons
+        self.btn1 = self.makeButton(text = "3", pos = (-0.2, -0.6), event = "debrief-wrong", hasPadding = False)
         self.btn2 = self.makeButton(text = "5", pos = (0, -0.6), event = "debrief-wrong", hasPadding = False)
         self.btn3 = self.makeButton(text = "2", pos = (0.2, -0.6), event = "debrief-wrong", hasPadding = False)
 
@@ -32,11 +36,19 @@ class Debrief(MenuBase):
         if isAnswer:
             self.chosenAnswer = True
 
-    def setButtons(self, values):
-        assert type(values) in (list, tuple) and len(values) == 3, "Values must be a list of length 3"
-        self.btn1["text"] = values[0]
-        self.btn2["text"] = values[1]
-        self.btn3["text"] = values[2]
+    def setButtons(self, currentMission):
+        buttonValues = currentMission.options #set the btn values to the options for the mission
+        correctAnswer = currentMission.correctAnswer
+        assert type(buttonValues) in (list, tuple) and len(buttonValues) == 3, "Values must be a list of length 3"
+        self.btn1["text"] = buttonValues[0]
+        self.btn2["text"] = buttonValues[1]
+        self.btn3["text"] = buttonValues[2]
+
+        for button in (self.btn1, self.btn2, self.btn3):
+            if button["text"] == correctAnswer:
+                #Change the command to sending event debrief-correct
+                button["extraArgs"] = ["debrief-correct"]
+
 
     def initialise(self):
         """Re-initialises the screen"""
