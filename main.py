@@ -185,9 +185,14 @@ class World:
         modelList = parseMissionFile(self.map)
         print(modelList)
         for model in modelList:
-            m = loader.loadModel("models/" + model.modelName)
-            m.reparentTo(self.terrain)
-            m.setPos(*model.modelPos)
+            try:
+                m = loader.loadModel("models/" + model.modelName)
+                m.reparentTo(self.terrain)
+                m.setPos(*model.modelPos)
+            except:
+                #Its a particle system
+                pass
+            
 
         #Once loaded, remove loading text
         text.hide()
@@ -226,9 +231,9 @@ class Player:
         base.cTrav.addCollider(self.colNode, base.pusher)
         base.pusher.addCollider(self.colNode, self.model)
 
-        base.enableParticles()
-        self.particles = ParticleEffect()
-        self.particles.loadConfig("particles/exhuast.ptf")
+        
+        #self.particles = ParticleEffect()
+        #self.particles.loadConfig("particles/exhuast.ptf")
         #self.particles.start(parent = self.model, renderParent = render)
 
         self.worldInstance = worldInstance
