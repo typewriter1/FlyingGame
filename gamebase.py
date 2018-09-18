@@ -20,7 +20,7 @@ from direct.gui.DirectGui import *
 import sys
 sys.path.append(r"C:\Users\avise\Desktop\Games\RenderPipeline-master")
 
-USE_RENDER_PIPELINE = False
+USE_RENDER_PIPELINE = True
 
 if USE_RENDER_PIPELINE:
     from rpcore import RenderPipeline, SpotLight
@@ -52,6 +52,7 @@ class GameBase(ShowBase):
         if autoSetup:
             self.setupLighting()
             self.setupCollision()
+            base.enableParticles()
         
         if debug:
             base.setFrameRateMeter(True)
