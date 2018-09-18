@@ -23,7 +23,7 @@ class Mission:
                  correctAnswer = "o2"):
         self.timeAllowed = timeAllowed
         self.objective = objective
-        self.objective += "\n You have " + str(timeAllowed) + " seconds to complete the mission."
+        self.objective += "\n You have " + str(timeAllowed) + " seconds\n to complete the mission."
         self.question = question
         self.mapName = mapName
         self.options = options
@@ -193,11 +193,11 @@ class World:
                 #Its a particle system
                 floater = render.attachNewNode("particle floater")
                 floater.setPos(self.terrain, *model.particlePos)
-                floater.setScale(50)
+                floater.setScale(5)
                 self.particles = ParticleEffect()
                 self.particles.loadConfig(model.ptfFile)
                 print(model.particlePos)
-                self.particles.start(parent = floater, renderParent = render)
+                self.particles.start(parent = floater, renderParent = floater)
                 #self.particles.setPos(*model.particlePos)
             
 
@@ -230,7 +230,7 @@ class Player:
         
         base.taskMgr.add(self.playerUpdate, "update player")
 
-        self.speed = 39
+        self.speed = 70
 
         self.colNode = self.model.attachNewNode(CollisionNode("player"))
         self.colNode.node().addSolid(CollisionSphere(0, 0, 0, 1))
