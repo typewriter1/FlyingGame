@@ -108,7 +108,7 @@ class MenuBase:
         self.frame = DirectFrame(
             frameSize = (base.a2dLeft, base.a2dRight,
                          base.a2dBottom, base.a2dTop),
-            frameColor = (0.2, 0.2, 0.6, 1.0),
+            frameColor = (0.4, 0.4, 0.8, 0.0),
             #image = "models/tex/ground2.png",
             #image_scale = (2, 0, 1),
             )
@@ -138,6 +138,9 @@ class MenuBase:
             )
         if hasPadding:
             btn["pad"] = (0.1, 0.001)
+        else:
+            #Still add a little bit anyway
+            btn["pad"] = (0.005, 0.0001)
         return btn
     
 
