@@ -123,6 +123,7 @@ class Game(GameBase, FSM):
         self.player = Player(self.world)
         self.accept("player-into-Collision", self.player.reset)
         self.accept("game-quit", self.request, ["Menu"])
+        self.accept("game-finished", self.request, ["Debrief"])
     
     def exitGame(self):
         self.world.destroy()

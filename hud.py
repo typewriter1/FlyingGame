@@ -23,6 +23,7 @@ class Hud:
             )
 
         self.createBtn("Quit", 0.8, ["game-quit"])
+        self.createBtn("Found It", 0.7, ["game-finished"])
         self.title.reparentTo(self.frame)
 
         self.timer = OnscreenText(text = "", mayChange = True, pos = (0.8, 0.9))
