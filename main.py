@@ -33,7 +33,7 @@ class Mission:
 missions = {
     "m1": Mission(
         timeAllowed = 60,
-        objective = "Find the enemy base\n and report how many fuel canisters\n they have.",
+        objective = "Our Enemy has just been bombed!\n Report how many fuel canisters\n are at their base.",
         question = "So, how many canisters were there?",
         mapName = "models/m1.mission",
         options = ["3", "4", "8"],
@@ -191,7 +191,14 @@ class World:
                 m.setPos(*model.modelPos)
             except:
                 #Its a particle system
-                pass
+                floater = render.attachNewNode("particle floater")
+                floater.setPos(self.terrain, *model.particlePos)
+                floater.setScale(50)
+                self.particles = ParticleEffect()
+                self.particles.loadConfig(model.ptfFile)
+                print(model.particlePos)
+                self.particles.start(parent = floater, renderParent = render)
+                #self.particles.setPos(*model.particlePos)
             
 
         #Once loaded, remove loading text
