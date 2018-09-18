@@ -20,7 +20,7 @@ from direct.gui.DirectGui import *
 import sys
 sys.path.append(r"C:\Users\avise\Desktop\Games\RenderPipeline-master")
 
-USE_RENDER_PIPELINE = True
+USE_RENDER_PIPELINE = False
 
 if USE_RENDER_PIPELINE:
     from rpcore import RenderPipeline, SpotLight
@@ -108,9 +108,9 @@ class MenuBase:
         self.frame = DirectFrame(
             frameSize = (base.a2dLeft, base.a2dRight,
                          base.a2dBottom, base.a2dTop),
-            frameColor = (0, 0, 0, 0),
-            image = "models/tex/ground2.png",
-            image_scale = (2, 0, 1),
+            frameColor = (0.2, 0.2, 0.6, 1.0),
+            #image = "models/tex/ground2.png",
+            #image_scale = (2, 0, 1),
             )
         self.frame.setTransparency(1)
 
