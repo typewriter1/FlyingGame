@@ -1,20 +1,18 @@
-"""
-About .mission files:
+class ParticleSystem(object):
+    def __init__(self, ptfFile, particlePos):
+        self.ptfFile = ptfFile
+        self.particlePos = particlePos
 
-They contain the locations model files should be loaded at and placed on the
-terrain.bam model.
+    def __repr__(self):
+        return "Particle System '" + self.ptfFile + "' at " + str(self.particlePos)
 
-Note that .egg/.bam extensions can be ommited.
-"""
-
-
-class Item(object):
+class Model(object):
     def __init__(self, modelName, modelPos):
         self.modelName = modelName
         self.modelPos = modelPos
 
     def __repr__(self):
-        return self.modelName + " at " + str(self.modelPos)
+        return "Model '" + self.modelName + "' at " + str(self.modelPos)
 
 def parseMissionFile(filename):
     f = open(filename, "r")
@@ -25,7 +23,10 @@ def parseMissionFile(filename):
     for line in file.split("\n"):  #go through each line
         lineContents = line.split(":")
         pos = lineContents[1].split(",")
-        models.append(Item(modelName = lineContents[0], modelPos = (float(pos[0]), float(pos[1]), float(pos[2]))))
+        if lineContents[0].startswith("particle"):
+            models.append(ParticleSystem(ptfFile = lineContents[0][8:], particlePos = (float(pos[0]), float(pos[1]), float(pos[2]))))
+        else:
+            models.append(Model(modelName = lineContents[0], modelPos = (float(pos[0]), float(pos[1]), float(pos[2]))))
 
     return models
 
