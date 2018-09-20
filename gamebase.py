@@ -20,7 +20,7 @@ from direct.gui.DirectGui import *
 import sys
 sys.path.append(r"C:\Users\avise\Desktop\Games\RenderPipeline-master")
 
-USE_RENDER_PIPELINE = False
+USE_RENDER_PIPELINE = True
 
 if USE_RENDER_PIPELINE:
     from rpcore import RenderPipeline, SpotLight
@@ -172,4 +172,7 @@ class Menu(MenuBase):
 
         self.quit = self.makeButton(text = "Quit", pos = (0, -0.15), event = "menu-quit")
         self.quit.reparentTo(self.frame)
+
+        self.settings = self.makeButton(text = "Settings", pos = (0, -0.3), event = "menu-settings")
+        self.settings.reparentTo(self.frame)
         
