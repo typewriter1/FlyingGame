@@ -9,6 +9,7 @@ from debrief import Debrief
 from hud import Hud
 from missionselect import MissionSelect
 from parsemission import parseMissionFile
+from settings import Settings
 
 import sys
 import time
@@ -71,12 +72,12 @@ class Game(GameBase, FSM):
         base.disableMouse()
         
         self.menu = Menu()
+        self.settings = Settings()
         self.missionScreen = MissionScreen()
         self.debrief = Debrief()
         self.hud = Hud()
         self.missionSelect = MissionSelect()
 
-        
         base.camLens.setFov(90)
 
         self.setMusic("audio/music.mp3", volume = 0.5)
@@ -97,6 +98,14 @@ class Game(GameBase, FSM):
         self.ignore("menu-start")
         self.ignore("menu-instructions")
         self.ignore("menu-quit")
+
+    def enterSettings(self):
+        self.settings.show()
+        self.accept("settings-back", self.request, "Menu")
+
+    def exitSettings(self):
+        self.settings.hide()
+        self.ignore("settings-back")
 
     def enterMissionSelect(self):
         self.missionSelect.show()
