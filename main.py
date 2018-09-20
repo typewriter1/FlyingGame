@@ -92,6 +92,7 @@ class Game(GameBase, FSM):
         self.accept("menu-start", self.request, ["MissionSelect"])
         self.accept("menu-instructions", self.request, ["Instructions"])
         self.accept("menu-quit", sys.exit)
+        self.accept("menu-settings", self.request, ["Settings"])
 
     def exitMenu(self):
         self.menu.hide()
@@ -101,7 +102,7 @@ class Game(GameBase, FSM):
 
     def enterSettings(self):
         self.settings.show()
-        self.accept("settings-back", self.request, "Menu")
+        self.accept("settings-back", self.request, ["Menu"])
 
     def exitSettings(self):
         self.settings.hide()
